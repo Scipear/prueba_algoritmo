@@ -87,14 +87,76 @@ def create_population(size):
     
     return population
 
+def groups_subjects(individual):
+    score = 0
+    groups_ocupation = {}
 
-population = create_population(100)
+    for item in individual:
+        g, s, t, a, r = item
+        key = (g, a)
+
+        if key in groups_ocupation:
+            score += 5
+        else:
+            groups_ocupation[key] = s
+
+    return score
+
+def teachers_subjects(individual):
+    score = 0
+    teachers_ocupation = {}
+
+    for item in individual:
+        g, s, t, a, r = item
+        key = (t, a)
+
+        if key in teachers_ocupation:
+            score += 5
+        else:
+            teachers_ocupation[key] = s
+
+    return score
+
+def rooms_groups(individual):
+    score = 0
+    rooms_ocupation = {}
+
+    for item in individual:
+        g, s, t, a, r = item
+        key = (r, a)
+
+        if key in rooms_ocupation:
+            score += 5
+        else:
+            rooms_ocupation[key] = g
+
+    return score
+
+def fitness(population):
+    results = []
+    score = 0
+
+    for individual in population:
+        score = groups_subjects(individual) + teachers_subjects(individual) + rooms_groups(individual)
+        results.append(score)
+    
+    return results
 
 def main():
-    for individual in population:
-        for item in individual:
-            g, s, t, a, r = item
-            print(f"Sección: {g} | Materia: {s} | Hora: {a} | Profesor: {t} | Aula: {r}")
+    population = create_population(100)
+    scores = fitness(population)
+    fitness_population = list(zip(scores, population))
+
+#def print_population(population):
+#    for i, (score, individual) in enumerate(population):
+#        print(f"\n=== Horario #{i+1} | Fitness Score: {score} ===")
+#        if i < 3: 
+#            for item in individual:
+#                g, s, t, a, r = item
+#                print(f"  Sec: {g} | Mat: {s} | Prof: {t} | Bloque: {a} | Aula: {r}")
+#        else:
+#            print("  [... Otros horarios ocultos ...]")
+#            break
 
 if __name__ == "__main__":
     main()
