@@ -142,21 +142,61 @@ def fitness(population):
     
     return results
 
+def selection(population, size):
+
+    population.sort(key=lambda x: x[0])
+    selected_population = population[:size]
+
+    return selected_population
+
+def crossover(population, selected_population):
+    point = 0
+    parents = []
+
+    for i in range(len(population)):
+        point = np.random.randint(1, len(population[i]) - 1)
+        parents = random.sample(selected_population, 2)
+
+        population[i][:point] = parents[0][1][:point]
+        population[i][point:] = parents[1][1][point:]
+    
+    return population
+
 def main():
+    i = 0
     population = create_population(100)
+
+    while i < 100:
+        scores = fitness(population)
+        fitness_population = list(zip(scores, population))
+
+        if i == 0:
+            print("Poblacion sin seleccionar")
+            print_population(fitness_population)
+        selected_population = selection(fitness_population, 30)
+        
+        if i == 0:
+            print("Poblacion seleccionada")
+            print_population(selected_population)
+        population = crossover(population, selected_population)
+        
+        i += 1
+
     scores = fitness(population)
     fitness_population = list(zip(scores, population))
+    print("generacion 100")
+    print_population(fitness_population)
 
-#def print_population(population):
-#    for i, (score, individual) in enumerate(population):
-#        print(f"\n=== Horario #{i+1} | Fitness Score: {score} ===")
-#        if i < 3: 
-#            for item in individual:
-#                g, s, t, a, r = item
-#                print(f"  Sec: {g} | Mat: {s} | Prof: {t} | Bloque: {a} | Aula: {r}")
-#        else:
-#            print("  [... Otros horarios ocultos ...]")
-#            break
+def print_population(population):
+    for i, (score, individual) in enumerate(population):
+        print(f"\n=== Horario #{i+1} | Fitness Score: {score} ===")
+        if i < 3: 
+            for item in individual:
+                g, s, t, a, r = item
+                print(f"  Sec: {g} | Mat: {s} | Prof: {t} | Bloque: {a} | Aula: {r}")
+        else:
+            print("  [... Otros horarios ocultos ...]")
+            break
 
 if __name__ == "__main__":
     main()
