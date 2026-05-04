@@ -244,49 +244,52 @@ def selection(population, size):
 
     return selected_population
 
-def crossover(population, selected_population):
-    point = 0
-    parents = []
+def crossover(selected_population, population_size):
+    new_population = []
 
-    for i in range(len(population)):
-        point = np.random.randint(1, len(population[i]) - 1)
+    new_population.append(selected_population[0][1])
+    new_population.append(selected_population[1][1])
+
+    while len(new_population) < population_size:
         parents = random.sample(selected_population, 2)
-
-        population[i][:point] = parents[0][1][:point]
-        population[i][point:] = parents[1][1][point:]
-
-        population[i] = mutation(population[i])
-    
-    return population
+        p1, p2 = parents[0][1], parents[1][1]
+        
+        point = random.randint(1, len(p1) - 1)
+        child = p1[:point] + p2[point:]
+        
+        child = mutation(child)
+        new_population.append(child)
+        
+    return new_population
 
 def mutation(individual):
     for i in range(len(individual)):
         if random.random() <= 0.1:
+            teacher = random.choice(teachers)
             academic_hour = random.choice(academic_hours)
+            room = random.choice(rooms)
 
-            individual[i] = [individual[i][0], individual[i][1], individual[i][2], academic_hour.id, individual[i][4]]
+            individual[i] = [individual[i][0], individual[i][1], teacher.id, academic_hour.id, room.id]
     
     return individual
 
-
-
 def main():
     i = 0
-    population = create_population(50)
+    population = create_population(100)
 
-    while i < 100:
+    while i < 500:
         scores = fitness(population)
         fitness_population = list(zip(scores, population))
 
         if i == 0:
             print("Poblacion sin seleccionar")
             print_population(fitness_population)
-        selected_population = selection(fitness_population, 15)
+        selected_population = selection(fitness_population, 10)
         
         if i == 0:
             print("Poblacion seleccionada")
             print_population(selected_population)
-        population = crossover(population, selected_population)
+        population = crossover(selected_population, 100)
         
         i += 1
 
