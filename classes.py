@@ -4,9 +4,10 @@ class Teacher():
         self.name = name
 
 class Subject():
-    def __init__(self, id: int, name: str):
+    def __init__(self, id: int, name: str, hours: int):
         self.id = id
         self.name = name
+        self.hours = hours
 
 class Academic_Hour():
     def __init__(self, id: int, day: str, start_hour: str, end_hour: str):
