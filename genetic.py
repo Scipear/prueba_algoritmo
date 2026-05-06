@@ -175,31 +175,43 @@ def create_timetable(teachers, academic_hours, rooms, groups):
 
     for group in groups:
         for subject in group.subjects:
-            point = subject.hours - 1
+            duration = subject.hours - 1
             subject_classes = []
             teacher = random.choice(teachers)
-            start_hour = random.choice(academic_hours)
-            room = random.choice(rooms)
 
-            if subject.hours > 3:
-                point = random.randint(1, subject.hours - 1)
-                
-                if start_hour.id + point <= len(academic_hours):
-                    end_hour = academic_hours[(start_hour.id + point) - 2]
-                else:
-                    end_hour = academic_hours[len(academic_hours) - 1]
-                
-                subject_classes.append([group.id, subject.id, teacher.id, start_hour.id, end_hour.id, room.id])
-                point = (subject.hours - point) - 1
+            while duration > 0:
                 start_hour = random.choice(academic_hours)
                 room = random.choice(rooms)
-            
-            if start_hour.id + point <= len(academic_hours):
-                end_hour = academic_hours[(start_hour.id + point) - 1]
-            else:
-                end_hour = academic_hours[len(academic_hours) - 1]
-            
-            subject_classes.append([group.id, subject.id, teacher.id, start_hour.id, end_hour.id, room.id])
+
+                if duration >= 3:
+                    point = random.randint(1, duration - 1)
+                    
+                    if start_hour.id + point <= len(academic_hours):
+                        end_hour = academic_hours[(start_hour.id + point) - 1]
+                        duration = (duration - point) - 1
+                    else:
+                        end_hour = academic_hours[len(academic_hours) - 1]
+                        duration -= ((end_hour.id - start_hour.id) + 1)
+                    
+                    subject_classes.append([group.id, subject.id, teacher.id, start_hour.id, end_hour.id, room.id])
+                    
+                    while True:
+                        start_hour = random.choice(academic_hours)
+
+                        if start_hour != end_hour:
+                            break
+                    
+                    room = random.choice(rooms)
+                
+                if start_hour.id + duration < len(academic_hours):
+                    end_hour = academic_hours[(start_hour.id + duration) - 1]
+                    duration = 0
+                    
+                else:
+                    end_hour = academic_hours[len(academic_hours) - 1]
+                    duration -= ((end_hour.id - start_hour.id) + 1)
+                
+                subject_classes.append([group.id, subject.id, teacher.id, start_hour.id, end_hour.id, room.id])
             timetable.append(subject_classes)
     
     return timetable
@@ -297,7 +309,7 @@ def crossover(selected_population, population_size):
         point = random.randint(1, len(p1) - 1)
         child = p1[:point] + p2[point:]
         
-        child = mutation(child)
+        #child = mutation(child)
         new_population.append(child)
         
     return new_population
@@ -338,19 +350,23 @@ def main():
     while i < 100:
         scores = fitness(population)
         fitness_population = list(zip(scores, population))
-        print("Poblacion sin seleccionar")
-        print_population(fitness_population)
+        if i == 0:
+            print("Poblacion sin seleccionar")
+            print_population(fitness_population)
 
         selected_population = selection(fitness_population, 10)
-        print("Poblacion seleccionada")
-        print_population(selected_population)
+        if i == 0:
+            print("Poblacion seleccionada")
+            print_population(selected_population)
         
         population = crossover(selected_population, 100)
-        # scores = fitness(population)
-        # fitness_population = list(zip(scores, population))
-        # fitness_population.sort(key=lambda x: x[0])
-        # print("generacion 100 ordenada")
-        # print_population(fitness_population)
+        i += 1
+    
+    scores = fitness(population)
+    fitness_population = list(zip(scores, population))
+    fitness_population.sort(key=lambda x: x[0])
+    print("generacion 100 ordenada")
+    print_population(fitness_population)
 
 def print_population(population):
     for i, (score, individual) in enumerate(population):
