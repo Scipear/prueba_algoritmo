@@ -4,10 +4,11 @@ class Teacher():
         self.name = name
 
 class Subject():
-    def __init__(self, id: int, name: str, hours: int):
+    def __init__(self, id: int, name: str, hours: int, teachers: list[Teacher]):
         self.id = id
         self.name = name
         self.hours = hours
+        self.teachers = teachers
 
 class Academic_Hour():
     def __init__(self, id: int, day: str, start_hour: str, end_hour: str):
@@ -27,10 +28,15 @@ class Group():
         self.name = name
         self.subjects = subjects
 
-class Chromosome():
-    def __init__(self, teacher: Teacher, subject: Subject, academic_hour: Academic_Hour, room: Room, group: Group):
-        self.teacher = teacher
-        self.subject = subject
-        self.academic_hour = academic_hour
-        self.room = room
-        self.group = group
+class Event():
+    def __init__(self, id: int, teacher: Teacher, subject: Subject, group: Group, duration: int):
+        self.id = id
+        self.group = group.id
+        self.teacher = teacher.id
+        self.subject = subject.id
+        self.duration = duration
+        self.start_hour = None
+        self.room = None
+    
+    def __repr__(self):
+        return f"(g {self.group} | s {self.subject} | t {self.teacher} | d {self.duration}h | s_h {self.start_hour} | e_h {(self.start_hour + self.duration) - 1} | r {self.room})"

@@ -1,6 +1,7 @@
 import numpy as np
 import random
-from classes import Teacher, Subject, Academic_Hour, Room, Group
+import copy
+from classes import Teacher, Subject, Academic_Hour, Room, Group, Event
 
 teachers = [
     Teacher(1, "Maria Lopez"),
@@ -37,27 +38,27 @@ teachers = [
 ]
 
 subjects = [
-    Subject(1, "Matematica", 4),
-    Subject(2, "Educacion Fisica", 2),
-    Subject(3, "Geografia, Historia y Soberania Nacional 1ro y 2do", 4),
-    Subject(4, "Biologia Ambiente y Tecnologia 1ro y 2do", 4),
-    Subject(5, "Idiomas 1ro y 2do", 3),
-    Subject(6, "Proyecto de Economia Socioproductiva y Tecnologia", 8),
-    Subject(7, "Maquinas, Distribucion y Control 1ro a 3ro", 8),
-    Subject(8, "Telecomunicacion y Control 1ro a 3ro", 8),
-    Subject(9, "Mantenimiento Maquinas 1ro a 3ro", 8),
-    Subject(10, "Sistema de Refrigeracion 1ro a 3ro", 8),
-    Subject(11, "Orientacion y Vinculacion Sociolaboral 1ro y 2do", 4),
-    Subject(12, "Lengua y Literatura 1ro y 2do", 3),
-    Subject(13, "Lengua y Literatura 3ro a 5to", 4),
-    Subject(14, "Idiomas 3ro a 5to", 4),
-    Subject(15, "Biologia Ambiente y Tecnologia 3ro a 5to", 8),
-    Subject(16, "Geografia, Historia y Soberania Nacional 3ro a 5to", 2),
-    Subject(17, "Maquinas, Distribucion y Control 4to y 5to", 10),
-    Subject(18, "Telecomunicacion y Control 4to y 5to", 10),
-    Subject(19, "Mantenimiento Maquinas 4to y 5to", 10),
-    Subject(20, "Sistema de Refrigeracion 4to y 5to", 10),
-    Subject(21, "Orientacion y Vinculacion Sociolaboral 3ro a 5to", 2),
+    Subject(1, "Matematica", 4, [teachers[0], teachers[1], teachers[2], teachers[3]]),
+    Subject(2, "Educacion Fisica", 2, [teachers[4]]),
+    Subject(3, "Geografia, Historia y Soberania Nacional 1ro y 2do", 4, [teachers[5]]),
+    Subject(4, "Biologia Ambiente y Tecnologia 1ro y 2do", 4, [teachers[6]]),
+    Subject(5, "Idiomas 1ro y 2do", 3, [teachers[7]]),
+    Subject(6, "Proyecto de Economia Socioproductiva y Tecnologia", 8, [teachers[8], teachers[9], teachers[10], teachers[11], teachers[12], teachers[13], teachers[14], teachers[15], teachers[16], teachers[17], teachers[18], teachers[19], teachers[20]]),
+    Subject(7, "Maquinas, Distribucion y Control 1ro a 3ro", 8, [teachers[8], teachers[9]]),
+    Subject(8, "Telecomunicacion y Control 1ro a 3ro", 8, [teachers[10], teachers[11]]),
+    Subject(9, "Mantenimiento Maquinas 1ro a 3ro", 8, [teachers[12], teachers[13]]),
+    Subject(10, "Sistema de Refrigeracion 1ro a 3ro", 8, [teachers[14], teachers[15]]),
+    Subject(11, "Orientacion y Vinculacion Sociolaboral 1ro y 2do", 4, [teachers[24], teachers[8], teachers[9], teachers[10], teachers[11], teachers[12], teachers[13], teachers[14]]),
+    Subject(12, "Lengua y Literatura 1ro y 2do", 3, [teachers[21]]),
+    Subject(13, "Lengua y Literatura 3ro a 5to", 4, [teachers[22], teachers[23]]),
+    Subject(14, "Idiomas 3ro a 5to", 4, [teachers[24], teachers[25]]),
+    Subject(15, "Biologia Ambiente y Tecnologia 3ro a 5to", 8, [teachers[26], teachers[27], teachers[28], teachers[29]]),
+    Subject(16, "Geografia, Historia y Soberania Nacional 3ro a 5to", 2, [teachers[30]]),
+    Subject(17, "Maquinas, Distribucion y Control 4to y 5to", 10, [teachers[16]]),
+    Subject(18, "Telecomunicacion y Control 4to y 5to", 10, [teachers[17], teachers[18]]),
+    Subject(19, "Mantenimiento Maquinas 4to y 5to", 10, [teachers[19]]),
+    Subject(20, "Sistema de Refrigeracion 4to y 5to", 10, [teachers[20]]),
+    Subject(21, "Orientacion y Vinculacion Sociolaboral 3ro a 5to", 2, [teachers[10], teachers[20], teachers[19]]),
 ]
 
 academic_hours = [
@@ -170,124 +171,213 @@ groups = [
     Group(25, "5to Mecanica Termina A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[19], subjects[20]]),
 ]
 
-def create_timetable(teachers, academic_hours, rooms, groups):
+def create_timetable(events: list[Event]):
     timetable = []
 
-    for group in groups:
-        for subject in group.subjects:
-            duration = subject.hours - 1
-            subject_classes = []
-            teacher = random.choice(teachers)
-
-            while duration > 0:
-                start_hour = random.choice(academic_hours)
-                room = random.choice(rooms)
-
-                if duration >= 3:
-                    point = random.randint(1, duration - 1)
-                    
-                    if start_hour.id + point <= len(academic_hours):
-                        end_hour = academic_hours[(start_hour.id + point) - 1]
-                        duration = (duration - point) - 1
-                    else:
-                        end_hour = academic_hours[len(academic_hours) - 1]
-                        duration -= ((end_hour.id - start_hour.id) + 1)
-                    
-                    subject_classes.append([group.id, subject.id, teacher.id, start_hour.id, end_hour.id, room.id])
-                    
-                    while True:
-                        start_hour = random.choice(academic_hours)
-
-                        if start_hour != end_hour:
-                            break
-                    
-                    room = random.choice(rooms)
-                
-                if start_hour.id + duration < len(academic_hours):
-                    end_hour = academic_hours[(start_hour.id + duration) - 1]
-                    duration = 0
-                    
-                else:
-                    end_hour = academic_hours[len(academic_hours) - 1]
-                    duration -= ((end_hour.id - start_hour.id) + 1)
-                
-                subject_classes.append([group.id, subject.id, teacher.id, start_hour.id, end_hour.id, room.id])
-            timetable.append(subject_classes)
+    for event in events:
+        day = random.randint(0, 4)
+        day_start = (day * 10) + 1
+        event.start_hour = random.randint(day_start, (day_start + 10) - event.duration)
+        event.room = random.choice(rooms).id
+        timetable.append(event)
     
     return timetable
 
-def create_population(size):
+    # for group in groups:
+    #     sorted_subjects = sorted(group.subjects, key=lambda s: s.hours, reverse=True)
+    #     for subject in sorted_subjects:
+    #         duration = subject.hours - 1
+    #         teacher = random.choice(subject.teachers)
+    #         timetable.append(create_class(group.id, subject.id, teacher.id, duration))
+    
+    # return timetable
+
+def create_events():
+    event_list = []
+    id = 1
+
+    for group in groups:
+        sorted_subjects = sorted(group.subjects, key=lambda s: s.hours, reverse=True)
+
+        for subject in sorted_subjects:
+            left_hours = subject.hours
+            teacher = random.choice(subject.teachers)
+
+            while left_hours > 0:
+                if left_hours >= 8:
+                    duration = random.randint(6, left_hours)
+                
+                elif left_hours > 2:
+                    duration = random.randint(2, left_hours)
+
+                else:
+                    duration = left_hours
+
+                event_list.append(Event(id, teacher, subject, group, duration))
+                id += 1
+                left_hours -= duration
+    
+    return event_list
+
+# def create_class(group_id, subject_id, teacher_id, duration):
+    subject_classes = []
+    special_subjects = [7, 8, 9, 10, 17, 18, 19, 20]
+
+    while duration >= 0:
+        start_hour = random.choice(academic_hours)
+        day_end_id = ((start_hour.id - 1) // 10 + 1) * 10
+        room = random.choice(rooms)
+
+        if duration >= 3:
+            point = random.randint(1, duration - 1)
+
+            if subject_id in special_subjects and duration >= 6:
+                if duration >= 7:
+                    start_hour = academic_hours[((start_hour.id - 1) // 10) * 10 ]
+                    point = duration
+                else:
+                    point = random.randint(6, duration - 1)
+
+            if start_hour.id + point - 1 > day_end_id:
+                point = day_end_id - start_hour.id + 1
+            
+            if start_hour.id + point <= len(academic_hours):
+                end_hour = academic_hours[(start_hour.id + point) - 1]
+                duration = (duration - point) - 1
+            else:
+                end_hour = academic_hours[len(academic_hours) - 1]
+                duration -= ((end_hour.id - start_hour.id) + 1)
+            
+            subject_classes.append([group_id, subject_id, teacher_id, start_hour.id, end_hour.id, room.id])
+            
+            while True:
+                start_hour = random.choice(academic_hours)
+
+                if start_hour != end_hour:
+                    break
+            
+            room = random.choice(rooms)
+        
+        if start_hour.id + duration < len(academic_hours):
+            end_hour = academic_hours[(start_hour.id + duration) - 1]
+            duration = -1
+
+        else:
+            end_hour = academic_hours[len(academic_hours) - 1]
+            duration -= ((end_hour.id - start_hour.id) + 1)
+        
+        subject_classes.append([group_id, subject_id, teacher_id, start_hour.id, end_hour.id, room.id])
+    
+    return subject_classes
+
+def create_population(size: int, events: list[Event]):
     population = []
 
     for i in range(size):
-        population.append(create_timetable(teachers, academic_hours, rooms, groups))
+        original_timetable = create_timetable(events)
+        timetable_copy = copy.deepcopy(original_timetable)
+        population.append(timetable_copy)
     
     return population
 
-def groups_subjects(individual):
+def fitness(population: list[list[Event]]):
+    results = []
+    score = 0
+    i = 0
+
+    for individual in population:
+        i += 1
+        score = groups_subjects(individual) + teachers_subjects(individual) + rooms_groups(individual)
+        results.append(score)
+
+    return results
+        
+
+def groups_subjects(individual: list[Event]):
     score = 0
     groups_occupation = {}
 
-    for subject in individual:
-        for block in subject:
-            g, s, t, s_h, e_h, r = block
+    for event in individual:
+        for block in range(event.start_hour, event.start_hour + event.duration):
+            key = (event.group, block)
 
-            for hour_id in range(s_h, e_h):
-                key = (g, hour_id)
-
-                if key in groups_occupation:
-                    score += 5
-                else:
-                    groups_occupation[key] = s
-
+            if key in groups_occupation:
+                score += 5
+            else:
+                groups_occupation[key] = event
+    
     return score
 
-def teachers_subjects(individual):
+    # for subject in individual:
+    #     for block in subject:
+    #         g, s, t, s_h, e_h, r = block
+
+    #         for hour_id in range(s_h, e_h + 1):
+    #             key = (g, hour_id)
+
+    #             if key in groups_occupation:
+    #                 score += 5
+    #             else:
+    #                 groups_occupation[key] = s
+
+    # return score
+
+def teachers_subjects(individual: list[Event]):
     score = 0
     teachers_occupation = {}
 
-    for subject in individual:
-        for block in subject:
-            g, s, t, s_h, e_h, r = block
+    for event in individual:
+        for block in range(event.start_hour, event.start_hour + event.duration):
+            key = (event.teacher, block)
 
-            for hour_id in range(s_h, e_h):
-                key = (t, hour_id)
-
-                if key in teachers_occupation:
-                    score += 5
-                else:
-                    teachers_occupation[key] = s
-
+            if key in teachers_occupation:
+                score += 5
+            else:
+                teachers_occupation[key] = event
+    
     return score
 
-def rooms_groups(individual):
+    # for subject in individual:
+    #     for block in subject:
+    #         g, s, t, s_h, e_h, r = block
+
+    #         for hour_id in range(s_h, e_h + 1):
+    #             key = (t, hour_id)
+
+    #             if key in teachers_occupation:
+    #                 score += 5
+    #             else:
+    #                 teachers_occupation[key] = s
+
+def rooms_groups(individual: list[Event]):
     score = 0
     rooms_occupation = {}
 
-    for subject in individual:
-        for block in subject:
-            g, s, t, s_h, e_h, r = block
+    for event in individual:
+        for block in range(event.start_hour, event.start_hour + event.duration):
+            key = (event.room, block)
 
-            for hour_id in range(s_h, e_h):
-
-                key = (r, hour_id)
-
-                if key in rooms_occupation:
-                    score += 5
-                else:
-                    rooms_occupation[key] = g
-
+            if key in rooms_occupation:
+                score += 5
+            else:
+                rooms_occupation[key] = event
+    
     return score
 
-def fitness(population):
-    results = []
-    score = 0
+    # for subject in individual:
+    #     for block in subject:
+    #         g, s, t, s_h, e_h, r = block
 
-    for individual in population:
-        score = groups_subjects(individual) + teachers_subjects(individual) + rooms_groups(individual)
-        results.append(score)
-    
-    return results
+    #         for hour_id in range(s_h, e_h + 1):
+
+    #             key = (r, hour_id)
+
+    #             if key in rooms_occupation:
+    #                 score += 5
+    #             else:
+    #                 rooms_occupation[key] = g
+
+    # return score
 
 def selection(population, size):
 
@@ -296,63 +386,76 @@ def selection(population, size):
 
     return selected_population
 
-def crossover(selected_population, population_size):
+def crossover(selected_population: list[list[Event]], population_size: int):
     new_population = []
 
-    new_population.append(selected_population[0][1])
-    new_population.append(selected_population[1][1])
+    new_population.append(copy.deepcopy(selected_population[0][1]))
+    new_population.append(copy.deepcopy(selected_population[1][1]))
 
     while len(new_population) < population_size:
         parents = random.sample(selected_population, 2)
         p1, p2 = parents[0][1], parents[1][1]
         
         point = random.randint(1, len(p1) - 1)
-        child = p1[:point] + p2[point:]
+        child = copy.deepcopy(p1[:point] + p2[point:])
         
-        #child = mutation(child)
+        child = mutation(child)
         new_population.append(child)
         
     return new_population
 
-def mutation(individual):
-    for i in range(len(individual)):
-        if random.random() <= 0.05 and i > 0 and individual[i][1] != individual[i-1][1]:
-            j = 0
-            point = random.randint(1, subjects[individual[i][1] - 1].hours)
-            #teacher = random.choice(teachers)
-            academic_hour = random.choice(academic_hours)
-            #room = random.choice(rooms)
-            while j < point:
-                individual[i] = [individual[i][0], individual[i][1], individual[i][2], academic_hour.id, individual[i][4]]
-            
-                if i == len(individual):
-                    break
-                
-                if academic_hour.id < len(academic_hours):
-                    academic_hour = academic_hours[academic_hour.id]
-                    
-                else:
-                    academic_hour = random.choice(academic_hours)
-                
-                
-                j += 1
-                i += 1
-
-            #individual[i] = [individual[i][0], individual[i][1], teacher.id, academic_hour.id, room.id]
+def mutation(individual: list[Event]):
+    for event in individual:
+        if random.random() < 0.05:
+            if random.choice([True, False]):
+                day = random.randint(0, 4)
+                day_start = (day * 10) + 1
+                event.start_hour = random.randint(day_start, (day_start + 10) - event.duration)
+            else:
+                event.room = random.choice(rooms).id
     
     return individual
 
-def main():
-    i = 0
-    population = create_population(100)
+    # for i in range(len(individual)):
+    #     if random.random() <= 0.15:
+    #         #teacher = random.choice(subjects[individual[i][0][1] - 1].teachers)
+    #         j = random.randint(0, len(individual[i]) - 1)
+    #         s_h = individual[i][j][3]
+    #         e_h = individual[i][j][4]
+    #         duration = e_h - s_h
+            
+    #         offset = random.choice([-1, 1])
+    #         new_s = s_h + offset
+    #         new_e = new_s + duration
+            
+    #         start_day = ((s_h - 1) // 10) * 10 + 1
+    #         end_day = start_day + 9
+            
+    #         if start_day <= new_s and new_e <= end_day:
+    #             individual[i][j][3] = new_s
+    #             individual[i][j][4] = new_e
+    #         # for j in range(len(individual[i])):
+    #         #     g, s, t, s_h, e_h, r = individual[i][j]
+    #         #     duration += (e_h - s_h) + 1
+            
+    #         # individual[i] = create_class(individual[i][0][0], individual[i][0][1], teacher.id, duration)
     
+    # return individual
 
-    while i < 100:
+def main():
+    events = create_events()
+    i = 0
+    population = create_population(100, events)
+
+    while i < 1000:
         scores = fitness(population)
         fitness_population = list(zip(scores, population))
         if i == 0:
             print("Poblacion sin seleccionar")
             print_population(fitness_population)
+        elif i % 10 == 0:
+            fitness_population.sort(key=lambda x: x[0])
+            print(f"Generacion {i} - Mejor Fitness: {fitness_population[0][0]}")
 
         selected_population = selection(fitness_population, 10)
         if i == 0:
@@ -362,24 +465,26 @@ def main():
         population = crossover(selected_population, 100)
         i += 1
     
-    scores = fitness(population)
-    fitness_population = list(zip(scores, population))
-    fitness_population.sort(key=lambda x: x[0])
-    print("generacion 100 ordenada")
-    print_population(fitness_population)
+    # scores = fitness(population)
+    # fitness_population = list(zip(scores, population))
+    # fitness_population.sort(key=lambda x: x[0])
+    # print("generacion 100 ordenada")
+    # print_population(fitness_population)
 
-def print_population(population):
+def print_population(population: list[list[Event]]):
     for i, (score, individual) in enumerate(population):
         print(f"\n=== Horario #{i+1} | Fitness Score: {score} ===")
-        if i < 1: 
-            for subject in individual:
-                for block in subject:
-                    g, s, t, s_h, e_h, r = block
-                    print(f"  Sec: {g} | Mat: {s} | Prof: {t} | Inicio: {s_h} | Fin: {e_h} | Aula: {r}")
+        if i < 1:
+            for event in individual:
+                print(event)
+        #     for subject in individual:
+        #         for block in subject:
+        #             g, s, t, s_h, e_h, r = block
+        #             print(f"  Sec: {g} | Mat: {s} | Prof: {t} | Inicio: {s_h} | Fin: {e_h} | Aula: {r}")
                     
-        else:
-            print("  [... Otros horarios ocultos ...]")
-            break
+        # else:
+        #     print("  [... Otros horarios ocultos ...]")
+        #     break
 
 if __name__ == "__main__":
     main()
