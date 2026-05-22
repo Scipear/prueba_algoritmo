@@ -1,7 +1,8 @@
 class Teacher():
-    def __init__(self, id: int, name: str):
+    def __init__(self, id: int, name: str, availabilities: list[Availability]):
         self.id = id
         self.name = name
+        self.availabilities = availabilities
 
 class Subject():
     def __init__(self, id: int, name: str, hours: int, teachers: list[Teacher]):
@@ -27,6 +28,12 @@ class Group():
         self.id = id
         self.name = name
         self.subjects = subjects
+
+class Availability():
+    def __init__(self, id: int, start_hour: int, end_hour: int):
+        self.id = id
+        self.start_hour = start_hour
+        self.end_hour = end_hour
 
 class Event():
     def __init__(self, id: int, teacher: Teacher, subject: Subject, group: Group, duration: int):

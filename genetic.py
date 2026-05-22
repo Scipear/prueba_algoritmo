@@ -1,64 +1,87 @@
 import numpy as np
 import random
 import copy
-from classes import Teacher, Subject, Academic_Hour, Room, Group, Event
+from classes import Teacher, Subject, Academic_Hour, Room, Group, Availability, Event
+
+availabilities = [
+    Availability(1, 1, 10),
+    Availability(2, 11, 20),
+    Availability(3, 21, 30),
+    Availability(4, 31, 40),
+    Availability(5, 41, 50),
+    Availability(6, 1, 7),
+    Availability(7, 11, 17),
+    Availability(8, 21, 27),
+    Availability(9, 31, 37),
+    Availability(10, 41, 47),
+    Availability(11, 35, 40),
+    Availability(12, 1, 6),
+    Availability(13, 11, 18),
+    Availability(14, 21, 26),
+    Availability(15, 31, 36),
+    Availability(16, 41, 46),
+    Availability(17, 11, 16),
+
+]
 
 teachers = [
-    Teacher(1, "Maria Lopez"),
-    Teacher(2, "Juan Lopez"),
-    Teacher(3, "Jose Lopez"),
-    Teacher(4, "Roberta Lopez"),
-    Teacher(5, "Luisa Lopez"),
-    Teacher(6, "Carlos Perez"),
-    Teacher(7, "Ana Rodriguez"),
-    Teacher(8, "Pedro Gomez"),
-    Teacher(9, "Laura Martinez"),
-    Teacher(10, "Diego Hernandez"),
-    Teacher(11, "Elena Diaz"),
-    Teacher(12, "Miguel Garcia"),
-    Teacher(13, "Sofia Torres"),
-    Teacher(14, "Ricardo Sanchez"),
-    Teacher(15, "Isabel Castro"),
-    Teacher(16, "Fernando Romero"),
-    Teacher(17, "Lucia Morales"),
-    Teacher(18, "Gabriel Espinoza"),
-    Teacher(19, "Valeria Ruiz"),
-    Teacher(20, "Alejandro Leon"),
-    Teacher(21, "Carmen Mendez"),
-    Teacher(22, "Javier Soto"),
-    Teacher(23, "Paola Delgado"),
-    Teacher(24, "Andres Alvarado"),
-    Teacher(25, "Beatriz Rojas"),
-    Teacher(26, "Roberto Vivas"),
-    Teacher(27, "Daniela Ortiz"),
-    Teacher(28, "Marcos Silva"),
-    Teacher(29, "Gloria Medina"),
-    Teacher(30, "Samuel Herrera"),
-    Teacher(31, "Patricia Aguilar")
+    Teacher(1, "Yhisel Bethermy", [availabilities[2], availabilities[3], availabilities[4]]), 
+    Teacher(2, "Yelkis Carrasquero", [availabilities[0], availabilities[1], availabilities[2], availabilities[4]]),
+    Teacher(3, "Lisbeth Contreras", [availabilities[0], availabilities[1], availabilities[2], availabilities[3]]),
+    Teacher(4, "Elias Gonzales", [availabilities[0], availabilities[1], availabilities[2], availabilities[3]]),
+    Teacher(5, "Greudisep Gonzales", [availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(6, "Emma Guzman", [availabilities[0], availabilities[1], availabilities[2], availabilities[3]]),
+    Teacher(7, "Nancy Hernandez", [availabilities[0], availabilities[1], availabilities[3], availabilities[4]]),
+    Teacher(8, "Carmen Itanare", [availabilities[0], availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(9, "Maria Marcano", [availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(10, "Pedro Martinez", [availabilities[0], availabilities[1], availabilities[2], availabilities[4]]),
+    Teacher(11, "Margaret Mendoza", [availabilities[0], availabilities[1], availabilities[3], availabilities[7], availabilities[9]]),
+    Teacher(12, "Keylimar Pacheco", [availabilities[0], availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(13, "Claritza Rodriguez", [availabilities[0], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(14, "Yudilernis Romero", [availabilities[0], availabilities[1], availabilities[3], availabilities[4]]),
+    Teacher(15, "Yeesika Rondon", [availabilities[11], availabilities[12], availabilities[13], availabilities[14], availabilities[15]]),
+    Teacher(16, "Yoandris Vallenilla", [availabilities[0], availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(17, "Julio Aguilar", [availabilities[0], availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(18, "Brenda Alcala", [availabilities[0], availabilities[1], availabilities[2], availabilities[4]]),
+    Teacher(19, "Rocio Centeno", [availabilities[0], availabilities[1], availabilities[14], availabilities[15], availabilities[16]]),
+    Teacher(20, "Yosmarys Gil", [availabilities[0], availabilities[1], availabilities[2], availabilities[4]]),
+    Teacher(21, "Jose Guevara", [availabilities[0], availabilities[1], availabilities[3], availabilities[4]]),
+    Teacher(22, "Yesenia Mundarain", [availabilities[0], availabilities[1], availabilities[3], availabilities[4], availabilities[4]]),
+    Teacher(23, "Margred Palacios", [availabilities[0], availabilities[1], availabilities[2], availabilities[4]]),
+    Teacher(24, "Joanna Pinto", [availabilities[0], availabilities[1], availabilities[2], availabilities[3]]),
+    Teacher(25, "Silvia Plaza", [availabilities[0], availabilities[1], availabilities[2], availabilities[3]]),
+    Teacher(26, "Arlene Rivera", [availabilities[2], availabilities[3]]),
+    Teacher(27, "Yoxiana Rodriguez", [availabilities[0], availabilities[1], availabilities[2], availabilities[4]]),
+    Teacher(28, "Danyer Teran", [availabilities[0], availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(29, "Magaly Valderrama", [availabilities[0], availabilities[1], availabilities[3], availabilities[4]]),
+    Teacher(30, "Anne Albornoz", [availabilities[11], availabilities[13], availabilities[14], availabilities[15], availabilities[16]]),
+    Teacher(31, "Juan Toro", [availabilities[0], availabilities[2], availabilities[3], availabilities[4]]),
+    Teacher(32, "Niurka Pinto", [availabilities[0], availabilities[1], availabilities[2]])
 ]
 
 subjects = [
-    Subject(1, "Matematica", 4, [teachers[0], teachers[1], teachers[2], teachers[3]]),
-    Subject(2, "Educacion Fisica", 2, [teachers[4]]),
-    Subject(3, "Geografia, Historia y Soberania Nacional 1ro y 2do", 4, [teachers[5]]),
-    Subject(4, "Biologia Ambiente y Tecnologia 1ro y 2do", 4, [teachers[6]]),
-    Subject(5, "Idiomas 1ro y 2do", 3, [teachers[7]]),
-    Subject(6, "Proyecto de Economia Socioproductiva y Tecnologia", 8, [teachers[8], teachers[9], teachers[10], teachers[11], teachers[12], teachers[13], teachers[14], teachers[15], teachers[16], teachers[17], teachers[18], teachers[19], teachers[20]]),
-    Subject(7, "Maquinas, Distribucion y Control 1ro a 3ro", 8, [teachers[8], teachers[9]]),
-    Subject(8, "Telecomunicacion y Control 1ro a 3ro", 8, [teachers[10], teachers[11]]),
-    Subject(9, "Mantenimiento Maquinas 1ro a 3ro", 8, [teachers[12], teachers[13]]),
-    Subject(10, "Sistema de Refrigeracion 1ro a 3ro", 8, [teachers[14], teachers[15]]),
-    Subject(11, "Orientacion y Vinculacion Sociolaboral 1ro y 2do", 4, [teachers[24], teachers[8], teachers[9], teachers[10], teachers[11], teachers[12], teachers[13], teachers[14]]),
-    Subject(12, "Lengua y Literatura 1ro y 2do", 3, [teachers[21]]),
-    Subject(13, "Lengua y Literatura 3ro a 5to", 4, [teachers[22], teachers[23]]),
-    Subject(14, "Idiomas 3ro a 5to", 4, [teachers[24], teachers[25]]),
-    Subject(15, "Biologia Ambiente y Tecnologia 3ro a 5to", 8, [teachers[26], teachers[27], teachers[28], teachers[29]]),
-    Subject(16, "Geografia, Historia y Soberania Nacional 3ro a 5to", 2, [teachers[30]]),
-    Subject(17, "Maquinas, Distribucion y Control 4to y 5to", 10, [teachers[16]]),
-    Subject(18, "Telecomunicacion y Control 4to y 5to", 10, [teachers[17], teachers[18]]),
-    Subject(19, "Mantenimiento Maquinas 4to y 5to", 10, [teachers[19]]),
-    Subject(20, "Sistema de Refrigeracion 4to y 5to", 10, [teachers[20]]),
-    Subject(21, "Orientacion y Vinculacion Sociolaboral 3ro a 5to", 2, [teachers[10], teachers[20], teachers[19]]),
+    Subject(1, "Matematica", 4, [teachers[14], teachers[15], teachers[29], teachers[30]]),
+    Subject(2, "Educacion Fisica", 2, [teachers[9]]),
+    Subject(3, "Geografia, Historia y Soberania Nacional 1ro y 2do", 4, [teachers[4], teachers[8]]),
+    Subject(4, "Biologia Ambiente y Tecnologia 1ro y 2do", 4, [teachers[12]]),
+    Subject(5, "Idiomas 1ro y 2do", 3, [teachers[1]]),
+    Subject(6, "Proyecto de Economia Socioproductiva y Tecnologia", 8, [teachers[14], teachers[16], teachers[17], teachers[18], teachers[19], teachers[20], teachers[21], teachers[22], teachers[23], teachers[24], teachers[26], teachers[27], teachers[28], teachers[31]]),
+    Subject(7, "Maquinas, Distribucion y Control 1ro a 3ro", 8, [teachers[24], teachers[25]]),
+    Subject(8, "Telecomunicacion y Control 1ro a 3ro", 8, [teachers[19], teachers[22], teachers[23]]),
+    Subject(9, "Mantenimiento Maquinas 1ro a 3ro", 8, [teachers[14], teachers[20]]),
+    Subject(10, "Sistema de Refrigeracion 1ro a 3ro", 8, [teachers[18], teachers[27]]),
+    Subject(11, "Orientacion y Vinculacion Sociolaboral 1ro y 2do", 4, [teachers[18], teachers[20], teachers[22], teachers[23], teachers[24], teachers[25], teachers[27], teachers[0]]),
+    Subject(12, "Lengua y Literatura 1ro y 2do", 3, [teachers[11]]),
+    Subject(13, "Lengua y Literatura 3ro a 5to", 4, [teachers[2], teachers[3], teachers[11]]),
+    Subject(14, "Idiomas 3ro a 5to", 4, [teachers[0], teachers[7]]),
+    Subject(15, "Biologia Ambiente y Tecnologia 3ro a 5to", 8, [teachers[5], teachers[6], teachers[10], teachers[13]]),
+    Subject(16, "Geografia, Historia y Soberania Nacional 3ro a 5to", 2, [teachers[8]]),
+    Subject(17, "Maquinas, Distribucion y Control 4to y 5to", 10, [teachers[17]]),
+    Subject(18, "Telecomunicacion y Control 4to y 5to", 10, [teachers[17], teachers[18], teachers[21], teachers[28], teachers[31]]),
+    Subject(19, "Mantenimiento Maquinas 4to y 5to", 10, [teachers[16]]),
+    Subject(20, "Sistema de Refrigeracion 4to y 5to", 10, [teachers[26]]),
+    Subject(21, "Orientacion y Vinculacion Sociolaboral 3ro a 5to", 2, [teachers[16], teachers[18], teachers[19], teachers[5]]),
+    Subject(22, "Programa y Diseno de Software", 8, [teachers[23]])
 ]
 
 academic_hours = [
@@ -111,8 +134,7 @@ academic_hours = [
     Academic_Hour(47, "Viernes", "11:10", "11:50"),
     Academic_Hour(48, "Viernes", "12:10", "12:50"),
     Academic_Hour(49, "Viernes", "12:50", "1:30"),
-    Academic_Hour(50, "Viernes", "1:30", "2:10")
-    
+    Academic_Hour(50, "Viernes", "1:30", "2:10") 
 ]
 
 rooms = [
@@ -140,13 +162,18 @@ rooms = [
     Room(22, "Aula 22"),
     Room(23, "Aula 23"),
     Room(24, "Aula 24"),
-    Room(25, "Aula 25")
+    Room(25, "Aula 25"),
+    Room(26, "Aula 26"),
+    Room(27, "Aula 27"),
+    Room(28, "Aula 28"),
+    Room(29, "Aula 29"),
+    Room(30, "Aula 30")
 ]
 
 groups = [
     Group(1, "1ro Electricidad A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[6], subjects[10]]),
     Group(2, "1ro Electronica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[7], subjects[10]]),
-    Group(3, "1ro Telematica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[10]]),
+    Group(3, "1ro Telematica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[10], subjects[21]]),
     Group(4, "1ro Metalmecanica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[8], subjects[10]]),
     Group(5, "1ro Mecanica Termica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[9], subjects[10]]),
     Group(6, "2do Electricidad A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[6], subjects[10]]),
@@ -171,26 +198,118 @@ groups = [
     Group(25, "5to Mecanica Termina A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[19], subjects[20]]),
 ]
 
+def is_teacher_available(teacher, start_hour: int, duration: int) -> bool:
+    teacher = next((t for t in teachers if t.id == teacher), None)
+
+    if teacher is None:
+        return False
+        
+    event_hours = set(range(start_hour, start_hour + duration))
+    
+    for av in teacher.availabilities:
+        av_hours = set(range(av.start_hour, av.end_hour + 1))
+        if event_hours.issubset(av_hours):
+            return True
+            
+    return False
+
+def move_hour(start_hour: int, duration: int) -> int:
+    day = (start_hour - 1) // 10
+    start_hour_day = (day * 10) + 1
+    end_hour_day = start_hour_day + 9
+
+    if start_hour > start_hour_day:
+        return start_hour - 1
+    else:
+        if day > 0:
+            return start_hour_day - duration
+        else:
+            return (len(academic_hours) + 1) - duration
+
 def create_timetable(events: list[Event]):
     timetable = []
+    groups_block = {}
+    teachers_block = {}
 
     for event in events:
+        # event.group y event.teacher YA son enteros (IDs)
+        if event.group not in groups_block:
+            groups_block[event.group] = set()
+
+        if event.teacher not in teachers_block:
+            teachers_block[event.teacher] = set()
+
+        found_block = False
+
         day = random.randint(0, 4)
         day_start = (day * 10) + 1
-        event.start_hour = random.randint(day_start, (day_start + 10) - event.duration)
-        event.room = random.choice(rooms).id
+        start_hour = random.randint(day_start, (day_start + 10) - event.duration)
+
+        # INTENTO 1: Buscar espacio ideal (sin choques y profesor disponible)
+        for _ in range(100):
+            event_hours = range(start_hour, start_hour + event.duration)
+
+            if (not groups_block[event.group].intersection(event_hours) and 
+                not teachers_block[event.teacher].intersection(event_hours) and 
+                is_teacher_available(event.teacher, start_hour, event.duration)):
+                
+                event.start_hour = start_hour
+                event.room = random.choice(rooms).id
+
+                groups_block[event.group].update(event_hours)
+                teachers_block[event.teacher].update(event_hours)
+                found_block = True
+                break
+
+            start_hour = move_hour(start_hour, event.duration)
+        
+        # INTENTO 2: Si está difícil, permite colisión con otro profesor (penalizado en fitness)
+        # pero OBLIGATORIAMENTE respeta la disponibilidad del profesor actual
+        if not found_block:
+            day = random.randint(0, 4)
+            day_start = (day * 10) + 1
+            start_hour = random.randint(day_start, (day_start + 10) - event.duration)
+            for _ in range(100):
+                event_hours = range(start_hour, start_hour + event.duration)
+                
+                if not groups_block[event.group].intersection(event_hours) and is_teacher_available(event.teacher, start_hour, event.duration):
+                    event.start_hour = start_hour
+                    event.room = random.choice(rooms).id
+                    groups_block[event.group].update(event_hours)
+                    teachers_block[event.teacher].update(event_hours) 
+                    found_block = True
+                    break
+
+                start_hour = move_hour(start_hour, event.duration)
+            
+            # INTENTO 3: Último recurso desesperado (Fuerza bruta sobre sus horas válidas)
+            if not found_block:
+                possible_hours = []
+                # Buscamos el objeto para extraer las horas en las que SÍ trabaja
+                teacher_obj = next((t for t in teachers if t.id == event.teacher), None)
+
+                if teacher_obj:
+                    for av in teacher_obj.availabilities:
+                        for h in range(av.start_hour, (av.end_hour - event.duration) + 2):
+                            possible_hours.append(h)
+                
+                # CORREGIDO: Usamos la lista en plural 'possible_hours'
+                if possible_hours:
+                    event.start_hour = random.choice(possible_hours)
+                else:
+                    # Fallback de emergencia si la clase es más larga que cualquier bloque disponible
+                    day = random.randint(0, 4)
+                    day_start = (day * 10) + 1
+                    event.start_hour = random.randint(day_start, (day_start + 10) - event.duration)
+
+                event.room = random.choice(rooms).id
+                event_hours = range(event.start_hour, event.start_hour + event.duration)
+                groups_block[event.group].update(event_hours)
+                teachers_block[event.teacher].update(event_hours)
+
         timetable.append(event)
     
     return timetable
-
-    # for group in groups:
-    #     sorted_subjects = sorted(group.subjects, key=lambda s: s.hours, reverse=True)
-    #     for subject in sorted_subjects:
-    #         duration = subject.hours - 1
-    #         teacher = random.choice(subject.teachers)
-    #         timetable.append(create_class(group.id, subject.id, teacher.id, duration))
-    
-    # return timetable
 
 def create_events():
     event_list = []
@@ -208,7 +327,10 @@ def create_events():
                     duration = random.randint(6, left_hours)
                 
                 elif left_hours > 2:
-                    duration = random.randint(2, left_hours)
+                    if left_hours == 4:
+                        duration = 2
+                    else:
+                        duration = random.randint(2, left_hours)
 
                 else:
                     duration = left_hours
@@ -218,57 +340,6 @@ def create_events():
                 left_hours -= duration
     
     return event_list
-
-# def create_class(group_id, subject_id, teacher_id, duration):
-    subject_classes = []
-    special_subjects = [7, 8, 9, 10, 17, 18, 19, 20]
-
-    while duration >= 0:
-        start_hour = random.choice(academic_hours)
-        day_end_id = ((start_hour.id - 1) // 10 + 1) * 10
-        room = random.choice(rooms)
-
-        if duration >= 3:
-            point = random.randint(1, duration - 1)
-
-            if subject_id in special_subjects and duration >= 6:
-                if duration >= 7:
-                    start_hour = academic_hours[((start_hour.id - 1) // 10) * 10 ]
-                    point = duration
-                else:
-                    point = random.randint(6, duration - 1)
-
-            if start_hour.id + point - 1 > day_end_id:
-                point = day_end_id - start_hour.id + 1
-            
-            if start_hour.id + point <= len(academic_hours):
-                end_hour = academic_hours[(start_hour.id + point) - 1]
-                duration = (duration - point) - 1
-            else:
-                end_hour = academic_hours[len(academic_hours) - 1]
-                duration -= ((end_hour.id - start_hour.id) + 1)
-            
-            subject_classes.append([group_id, subject_id, teacher_id, start_hour.id, end_hour.id, room.id])
-            
-            while True:
-                start_hour = random.choice(academic_hours)
-
-                if start_hour != end_hour:
-                    break
-            
-            room = random.choice(rooms)
-        
-        if start_hour.id + duration < len(academic_hours):
-            end_hour = academic_hours[(start_hour.id + duration) - 1]
-            duration = -1
-
-        else:
-            end_hour = academic_hours[len(academic_hours) - 1]
-            duration -= ((end_hour.id - start_hour.id) + 1)
-        
-        subject_classes.append([group_id, subject_id, teacher_id, start_hour.id, end_hour.id, room.id])
-    
-    return subject_classes
 
 def create_population(size: int, events: list[Event]):
     population = []
@@ -282,12 +353,12 @@ def create_population(size: int, events: list[Event]):
 
 def fitness(population: list[list[Event]]):
     results = []
-    score = 0
-    i = 0
-
+    
     for individual in population:
-        i += 1
-        score = groups_subjects(individual) + teachers_subjects(individual) + rooms_groups(individual)
+        # Extraemos el score y descartamos la lista de choques usando ', _'
+        t_score, _ = teachers_subjects(individual)
+        
+        score = groups_subjects(individual) + t_score + rooms_groups(individual)
         results.append(score)
 
     return results
@@ -302,52 +373,50 @@ def groups_subjects(individual: list[Event]):
             key = (event.group, block)
 
             if key in groups_occupation:
-                score += 5
+                score += 10
             else:
                 groups_occupation[key] = event
     
     return score
 
-    # for subject in individual:
-    #     for block in subject:
-    #         g, s, t, s_h, e_h, r = block
-
-    #         for hour_id in range(s_h, e_h + 1):
-    #             key = (g, hour_id)
-
-    #             if key in groups_occupation:
-    #                 score += 5
-    #             else:
-    #                 groups_occupation[key] = s
-
-    # return score
-
 def teachers_subjects(individual: list[Event]):
     score = 0
     teachers_occupation = {}
+    collisions = [] # Guardará el registro detallado de los choques
 
     for event in individual:
+        # Ignorar eventos que no tienen hora asignada aún (preventivo)
+        if event.start_hour is None:
+            continue
+
         for block in range(event.start_hour, event.start_hour + event.duration):
             key = (event.teacher, block)
 
             if key in teachers_occupation:
-                score += 5
+                score += 50
+                
+                # Evento con el que choca (el que ya estaba guardado en esa hora)
+                existing_event = teachers_occupation[key]
+                
+                # Registramos el choque detallando ambos eventos involucrados
+                collisions.append({
+                    "teacher_id": event.teacher,
+                    "block": block,
+                    "event_1": {
+                        "id": existing_event.id,
+                        "subject": existing_event.subject,
+                        "group": existing_event.group
+                    },
+                    "event_2": {
+                        "id": event.id,
+                        "subject": event.subject,
+                        "group": event.group
+                    }
+                })
             else:
                 teachers_occupation[key] = event
     
-    return score
-
-    # for subject in individual:
-    #     for block in subject:
-    #         g, s, t, s_h, e_h, r = block
-
-    #         for hour_id in range(s_h, e_h + 1):
-    #             key = (t, hour_id)
-
-    #             if key in teachers_occupation:
-    #                 score += 5
-    #             else:
-    #                 teachers_occupation[key] = s
+    return score, collisions
 
 def rooms_groups(individual: list[Event]):
     score = 0
@@ -358,26 +427,11 @@ def rooms_groups(individual: list[Event]):
             key = (event.room, block)
 
             if key in rooms_occupation:
-                score += 5
+                score += 20
             else:
                 rooms_occupation[key] = event
     
     return score
-
-    # for subject in individual:
-    #     for block in subject:
-    #         g, s, t, s_h, e_h, r = block
-
-    #         for hour_id in range(s_h, e_h + 1):
-
-    #             key = (r, hour_id)
-
-    #             if key in rooms_occupation:
-    #                 score += 5
-    #             else:
-    #                 rooms_occupation[key] = g
-
-    # return score
 
 def selection(population, size):
 
@@ -406,46 +460,86 @@ def crossover(selected_population: list[list[Event]], population_size: int):
 
 def mutation(individual: list[Event]):
     for event in individual:
-        if random.random() < 0.05:
+        if random.random() < 0.02:
             if random.choice([True, False]):
-                day = random.randint(0, 4)
-                day_start = (day * 10) + 1
-                event.start_hour = random.randint(day_start, (day_start + 10) - event.duration)
-            else:
+                current_subject = next((s for s in subjects if s.id == event.subject), None)
+                available_teachers = []
+                if current_subject:
+                    available_teachers = [
+                        t for t in current_subject.teachers 
+                        if t.id != event.teacher and is_teacher_available(t.id, event.start_hour, event.duration)
+                    ]
+
+                # DECISIÓN INTELIGENTE: Si hay profesores alternativos, tiramos una moneda (50/50).
+                # Si el profesor es ÚNICO, lo obligamos a ir directamente a MUTAR HORA.
+                mutar_profesor = False
+                if available_teachers and random.choice([True, False]):
+                    mutar_profesor = True
+
+                if mutar_profesor:
+                    # --- MUTAR PROFESOR ---
+                    new_teacher = random.choice(available_teachers)
+                    i_subject = event.subject
+                    i_group = event.group
+
+                    for e in individual:
+                        if e.group > i_group:
+                            break
+                        if e.subject == i_subject and e.group == i_group:
+                            e.teacher = new_teacher.id
+                        
+                else:
+                    # --- MUTAR HORA ---
+                    taken_hours = set()
+
+                    # CORRECCIÓN CRÍTICA: Bloqueamos las horas donde el grupo YA tiene clases
+                    # Y TAMBIÉN las horas donde este profesor YA está dictando otra clase en el instituto
+                    for e in individual:
+                        if e.id != event.id and e.start_hour is not None:
+                            # Si es del mismo grupo O es el mismo profesor, esa hora NO está disponible
+                            if e.group == event.group or e.teacher == event.teacher:
+                                taken_hours.update(range(e.start_hour, e.start_hour + e.duration))
+                    
+                    available_space = False
+
+                    # Intentamos buscar una hora aleatoria que no choque con nadie (Grupo o Profesor)
+                    # Subimos los intentos a 100 para dar más margen de búsqueda limpia
+                    for _ in range(100):
+                        day = random.randint(0, 4)
+                        day_start = (day * 10) + 1
+                        new_hour = random.randint(day_start, (day_start + 10) - event.duration)
+                        hours_block = range(new_hour, new_hour + event.duration)
+
+                        # Si no colisiona con las horas ocupadas globales Y el profesor está disponible en su contrato
+                        if not taken_hours.intersection(hours_block) and is_teacher_available(event.teacher, new_hour, event.duration):
+                            event.start_hour = new_hour
+                            available_space = True
+                            break
+                    
+                    # Fallback de emergencia si el horario está muy apretado:
+                    # Lo movemos a cualquier hora donde el profesor esté disponible según contrato 
+                    # (aunque arriesguemos un choque de grupo que el fitness resolverá)
+                    if not available_space:
+                        valid_hours_for_prof = []
+                        teacher_obj = next((t for t in teachers if t.id == event.teacher), None)
+                        
+                        if teacher_obj:
+                            for av in teacher_obj.availabilities:
+                                for h in range(av.start_hour, (av.end_hour - event.duration) + 2):
+                                    valid_hours_for_prof.append(h)
+                                    
+                        if valid_hours_for_prof:
+                            event.start_hour = random.choice(valid_hours_for_prof)
+        else:
+            if random.random() < 0.01:
                 event.room = random.choice(rooms).id
     
     return individual
 
-    # for i in range(len(individual)):
-    #     if random.random() <= 0.15:
-    #         #teacher = random.choice(subjects[individual[i][0][1] - 1].teachers)
-    #         j = random.randint(0, len(individual[i]) - 1)
-    #         s_h = individual[i][j][3]
-    #         e_h = individual[i][j][4]
-    #         duration = e_h - s_h
-            
-    #         offset = random.choice([-1, 1])
-    #         new_s = s_h + offset
-    #         new_e = new_s + duration
-            
-    #         start_day = ((s_h - 1) // 10) * 10 + 1
-    #         end_day = start_day + 9
-            
-    #         if start_day <= new_s and new_e <= end_day:
-    #             individual[i][j][3] = new_s
-    #             individual[i][j][4] = new_e
-    #         # for j in range(len(individual[i])):
-    #         #     g, s, t, s_h, e_h, r = individual[i][j]
-    #         #     duration += (e_h - s_h) + 1
-            
-    #         # individual[i] = create_class(individual[i][0][0], individual[i][0][1], teacher.id, duration)
-    
-    # return individual
-
 def main():
     events = create_events()
     i = 0
-    population = create_population(100, events)
+    population = create_population(50, events)
 
     while i < 1000:
         scores = fitness(population)
@@ -462,14 +556,17 @@ def main():
             print("Poblacion seleccionada")
             print_population(selected_population)
         
-        population = crossover(selected_population, 100)
+        population = crossover(selected_population, 50)
         i += 1
     
-    # scores = fitness(population)
-    # fitness_population = list(zip(scores, population))
-    # fitness_population.sort(key=lambda x: x[0])
-    # print("generacion 100 ordenada")
-    # print_population(fitness_population)
+    scores = fitness(population)
+    fitness_population = list(zip(scores, population))
+    fitness_population.sort(key=lambda x: x[0])
+    print("generacion 100 ordenada")
+    print_population(fitness_population)
+    best_individual = fitness_population[0][1] 
+    _, final_collisions = teachers_subjects(best_individual)
+    print_collisions_report(final_collisions)
 
 def print_population(population: list[list[Event]]):
     for i, (score, individual) in enumerate(population):
@@ -485,6 +582,33 @@ def print_population(population: list[list[Event]]):
         # else:
         #     print("  [... Otros horarios ocultos ...]")
         #     break
+
+def print_collisions_report(collisions: list):
+    if not collisions:
+        print("\n" + "="*50)
+        print(" 🎉 ¡EXCELENTE! No se encontraron choques de profesores. 🎉")
+        print("="*50 + "\n")
+        return
+
+    days_names = ["Lunes", "Martes", "Miércoles", "Jueves", "Viernes"]
+
+    print("\n" + "!"*60)
+    print(f"       REPORTE DETALLADO DE CHOQUES ({len(collisions)} detectados)")
+    print("!"*60)
+
+    # Agrupamos o iteramos para mostrarlo visualmente limpio
+    for i, c in enumerate(collisions, 1):
+        # Calcular el día (0 a 4) y la hora dentro de ese día (1 a 10)
+        day_index = (c["block"] - 1) // 10
+        hour_in_day = ((c["block"] - 1) % 10) + 1
+        
+        day_name = days_names[day_index] if day_index < len(days_names) else f"Día {day_index}"
+
+        print(f"\n💥 CHOQUE #{i} | Profesor ID: {c['teacher_id']} | {day_name} - Hora Bloque: {hour_in_day} (Global: {c['block']})")
+        print(f"  └─ Clase A: Evento ID {c['event_1']['id']} | Materia ID: {c['event_1']['subject']} | Grupo ID: {c['event_1']['group']}")
+        print(f"  └─ Clase B: Evento ID {c['event_2']['id']} | Materia ID: {c['event_2']['subject']} | Grupo ID: {c['event_2']['group']}")
+    
+    print("\n" + "="*60 + "\n")
 
 if __name__ == "__main__":
     main()
