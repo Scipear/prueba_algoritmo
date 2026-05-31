@@ -39,7 +39,7 @@ teachers = [
     Teacher(12, "Keylimar Pacheco", [availabilities[0], availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
     Teacher(13, "Claritza Rodriguez", [availabilities[0], availabilities[2], availabilities[3], availabilities[4]]),
     Teacher(14, "Yudilernis Romero", [availabilities[0], availabilities[1], availabilities[3], availabilities[4]]),
-    Teacher(15, "Yeesika Rondon", [availabilities[11], availabilities[12], availabilities[13], availabilities[14], availabilities[15]]),
+    Teacher(15, "Yeesika Rondon", [availabilities[11], availabilities[1], availabilities[13], availabilities[14], availabilities[15]]),
     Teacher(16, "Yoandris Vallenilla", [availabilities[0], availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
     Teacher(17, "Julio Aguilar", [availabilities[0], availabilities[1], availabilities[2], availabilities[3], availabilities[4]]),
     Teacher(18, "Brenda Alcala", [availabilities[0], availabilities[1], availabilities[2], availabilities[4]]),
@@ -63,30 +63,78 @@ teachers = [
 ]
 
 subjects = [
-    Subject(1, "Matematica", 4, [teachers[14], teachers[15], teachers[29], teachers[30]]),
-    Subject(2, "Educacion Fisica", 2, [teachers[9]]),
-    Subject(3, "Geografia, Historia y Soberania Nacional 1ro y 2do", 4, [teachers[4], teachers[8]]),
-    Subject(4, "Biologia Ambiente y Tecnologia 1ro y 2do", 4, [teachers[12]]),
-    Subject(5, "Idiomas 1ro y 2do", 3, [teachers[1]]),
-    Subject(6, "Proyecto de Economia Socioproductiva y Tecnologia", 8, [teachers[14], teachers[16], teachers[17], teachers[18], teachers[19], teachers[20], teachers[21], teachers[22], teachers[23], teachers[24], teachers[26], teachers[27], teachers[28], teachers[31]]),
-    Subject(7, "Maquinas, Distribucion y Control 1ro a 3ro", 8, [teachers[24], teachers[25]]),
-    Subject(8, "Telecomunicacion y Control 1ro a 3ro", 8, [teachers[19], teachers[22], teachers[23]]),
-    Subject(9, "Mantenimiento Maquinas 1ro a 3ro", 8, [teachers[14], teachers[20]]),
-    Subject(10, "Sistema de Refrigeracion 1ro a 3ro", 8, [teachers[18], teachers[27]]),
-    Subject(11, "Orientacion y Vinculacion Sociolaboral 1ro y 2do", 4, [teachers[18], teachers[20], teachers[22], teachers[23], teachers[24], teachers[25], teachers[27], teachers[0]]),
-    Subject(12, "Lengua y Literatura 1ro y 2do", 3, [teachers[11]]),
-    Subject(13, "Lengua y Literatura 3ro a 5to", 4, [teachers[2], teachers[3], teachers[11]]),
-    Subject(14, "Idiomas 3ro a 5to", 4, [teachers[0], teachers[7]]),
-    Subject(15, "Biologia Ambiente y Tecnologia 3ro a 5to", 8, [teachers[5], teachers[6], teachers[10], teachers[13]]),
-    Subject(16, "Geografia, Historia y Soberania Nacional 3ro a 5to", 2, [teachers[8]]),
-    Subject(17, "Maquinas, Distribucion y Control 4to y 5to", 10, [teachers[17]]),
-    Subject(18, "Telecomunicacion y Control 4to y 5to", 10, [teachers[17], teachers[18], teachers[21], teachers[28], teachers[31]]),
-    Subject(19, "Mantenimiento Maquinas 4to y 5to", 10, [teachers[16]]),
-    Subject(20, "Sistema de Refrigeracion 4to y 5to", 10, [teachers[26]]),
-    Subject(21, "Orientacion y Vinculacion Sociolaboral 3ro a 5to", 2, [teachers[16], teachers[18], teachers[19], teachers[5]]),
-    Subject(22, "Programacion y Diseno de Software", 8, [teachers[23]]),
-    Subject(23, "Educacion en Valores 1ro a 3ro", 2, [teachers[33]]),
-    Subject(24, "Educación en Valores 4to y 5to", 2, [teachers[32]])
+    Subject(1, "Lengua y Literatura 1ro", 3, [teachers[11]]),
+    Subject(2, "Lengua y Literatura 2do", 3, [teachers[11]]),
+    Subject(3, "Lengua y Literatura 3ro", 4, [teachers[3], teachers[11]]),
+    Subject(4, "Lengua y Literatura 4to", 4, [teachers[3]]),
+    Subject(5, "Lengua y Literatura 5to", 4, [teachers[2]]),
+    Subject(6, "Ingles 1ro", 3, [teachers[1]]),
+    Subject(7, "Ingles 2do", 3, [teachers[1]]),
+    Subject(8, "Ingles 3ro", 4, [teachers[0]]),
+    Subject(9, "Ingles 4to", 4, [teachers[0], teachers[7]]),
+    Subject(10, "Ingles 5to", 4, [teachers[7]]),
+    Subject(11, "Matematica 1ro", 4, [teachers[15]]),
+    Subject(12, "Matematica 2do", 4, [teachers[14], teachers[15]]),
+    Subject(13, "Matematica 3ro", 4, [teachers[14], teachers[30]]),
+    Subject(14, "Matematica 4to", 4, [teachers[29], teachers[30]]),
+    Subject(15, "Matematica 5to", 4, [teachers[29]]),
+    Subject(16, "Educacion Fisica 1ro", 2, [teachers[9]]),
+    Subject(17, "Educacion Fisica 2do", 2, [teachers[9]]),
+    Subject(18, "Educacion Fisica 3ro", 2, [teachers[9]]),
+    Subject(19, "Biologia, Ambiente y Tecnologia 1ro", 4, [teachers[12]]),
+    Subject(20, "Biologia, Ambiente y Tecnologia 2ro", 4, [teachers[12], teachers[5]]),
+    Subject(21, "Biologia, Ambiente y Tecnologia 3ro", 4, [teachers[13]]),
+    Subject(22, "Biologia, Ambiente y Tecnologia (B) 3ro", 4, [teachers[6]]),
+    Subject(23, "Biologia, Ambiente y Tecnologia (B) 4to", 2, [teachers[6]]),
+    Subject(24, "Biologia, Ambiente y Tecnologia (F) 4to", 3, [teachers[10]]),
+    Subject(25, "Biologia, Ambiente y Tecnologia (Q) 4to", 3, [teachers[13]]),
+    Subject(26, "Biologia, Ambiente y Tecnologia (B) 5to", 4, [teachers[5]]),
+    Subject(27, "Biologia, Ambiente y Tecnologia (F) 5to", 4, [teachers[10]]),
+    Subject(28, "Geografia, Historia y Soberania Nacional 1ro", 4, [teachers[4]]),
+    Subject(29, "Geografia, Historia y Soberania Nacional 2do", 4, [teachers[4], teachers[8]]),
+    Subject(30, "Geografia, Historia y Soberania Nacional 3ro", 2, [teachers[8]]),
+    Subject(31, "Geografia, Historia y Soberania Nacional 4to", 2, [teachers[8]]),
+    Subject(32, "Geografia, Historia y Soberania Nacional 5to", 2, [teachers[8]]),
+    Subject(33, "Proyecto de Economia Socioproductiva y Tecnologia Electricidad", 8, [teachers[17], teachers[24], teachers[25]]),
+    Subject(34, "Proyecto de Economia Socioproductiva y Tecnologia Electronica", 8, [teachers[19], teachers[21], teachers[22], teachers[28], teachers[31]]),
+    Subject(35, "Proyecto de Economia Socioproductiva y Tecnologia Telematica", 8, [teachers[23]]),
+    Subject(36, "Proyecto de Economia Socioproductiva y Tecnologia Metalmecanica", 8, [teachers[14], teachers[16], teachers[20]]),
+    Subject(37, "Proyecto de Economia Socioproductiva y Tecnologia Mecanica Termica", 8, [teachers[18], teachers[26], teachers[27]]),
+    Subject(38, "Maquinas, Distribucion y Control 1ro", 8, [teachers[25]]),
+    Subject(39, "Maquinas, Distribucion y Control 2do", 8, [teachers[24]]),
+    Subject(40, "Maquinas, Distribucion y Control 3ro", 8, [teachers[24]]),
+    Subject(41, "Maquinas, Distribucion y Control 4to", 10, [teachers[17]]),
+    Subject(42, "Maquinas, Distribucion y Control 5to", 10, [teachers[17]]),
+    Subject(43, "Telecomunicacion y Control 1ro", 8, [teachers[19]]),
+    Subject(44, "Telecomunicacion y Control 2do", 8, [teachers[22]]),
+    Subject(45, "Telecomunicacion y Control 3ro", 8, [teachers[19], teachers[23]]),
+    Subject(46, "Telecomunicacion y Control 4to", 10, [teachers[28], teachers[31]]),
+    Subject(47, "Telecomunicacion y Control 5to", 10, [teachers[21], teachers[28]]),
+    Subject(48, "Programacion y Diseno de Software y Redes 1ro", 8, [teachers[23]]),
+    Subject(49, "Mantenimiento Maquinas 1ro", 8, [teachers[14]]),
+    Subject(50, "Mantenimiento Maquinas 2do", 8, [teachers[20]]),
+    Subject(51, "Mantenimiento Maquinas 3ro", 8, [teachers[20]]),
+    Subject(52, "Mantenimiento Maquinas 4to", 10, [teachers[16]]),
+    Subject(53, "Mantenimiento Maquinas 5to", 10, [teachers[16]]),
+    Subject(54, "Sistemas de Refrigeracion, Aire Acondicionado y Calderas 1ro", 8, [teachers[18]]),
+    Subject(55, "Sistemas de Refrigeracion, Aire Acondicionado y Calderas 2do", 8, [teachers[27]]),
+    Subject(56, "Sistemas de Refrigeracion, Aire Acondicionado y Calderas 3ro", 8, [teachers[27]]),
+    Subject(57, "Sistemas de Refrigeracion, Aire Acondicionado y Calderas 4to", 10, [teachers[26]]),
+    Subject(58, "Sistemas de Refrigeracion, Aire Acondicionado y Calderas 5to", 10, [teachers[26]]),
+    Subject(59, "Orientacion y Vinculacion 1ro y 2do Electricidad", 4, [teachers[24], teachers[25]]),
+    Subject(60, "Orientacion y Vinculacion 1ro y 2do Electronica", 4, [teachers[22], teachers[30]]),
+    Subject(61, "Orientacion y Vinculacion 1ro y 2do Telematica", 4, [teachers[23]]),
+    Subject(62, "Orientacion y Vinculacion 1ro y 2do Metalmecanica", 4, [teachers[20], teachers[30]]),
+    Subject(63, "Orientacion y Vinculacion 1ro y 2do Mecanica Termica", 4, [teachers[18], teachers[27]]),
+    Subject(64, "Orientacion y Vinculacion 3ro a 5to Electricidad", 2, [teachers[5], teachers[24]]),
+    Subject(65, "Orientacion y Vinculacion 3ro a 5to Electronica", 2, [teachers[5], teachers[18], teachers[19]]),
+    Subject(66, "Orientacion y Vinculacion 3ro a 5to Metalmecanica", 2, [teachers[16], teachers[18]]),
+    Subject(67, "Orientacion y Vinculacion 3ro a 5to Mecanica Termica", 2, [teachers[5], teachers[18], teachers[30]]),
+    Subject(68, "Educacion en Valores 1ro", 2, [teachers[33]]),
+    Subject(69, "Educacion en Valores 2do", 2, [teachers[33]]),
+    Subject(70, "Educacion en Valores 3ro", 2, [teachers[33]]),
+    Subject(71, "Educacion en Valores 4to", 2, [teachers[32]]),
+    Subject(72, "Educacion en Valores 5to", 2, [teachers[32]]),
 ]
 
 academic_hours = [
@@ -176,31 +224,31 @@ rooms = [
 ]
 
 groups = [
-    Group(1, "1ro Electricidad A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[6], subjects[10], subjects[22]]),
-    Group(2, "1ro Electronica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[7], subjects[10], subjects[22]]),
-    Group(3, "1ro Telematica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[10], subjects[21], subjects[22]]),
-    Group(4, "1ro Metalmecanica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[8], subjects[10], subjects[22]]),
-    Group(5, "1ro Mecanica Termica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[9], subjects[10], subjects[22]]),
-    Group(6, "2do Electricidad A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[6], subjects[10], subjects[22]]),
-    Group(7, "2do Electronica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[7], subjects[10], subjects[22]]),
-    Group(8, "2do Electronica B", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[7], subjects[10], subjects[22]]),
-    Group(9, "2do Metalmecanica A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[8], subjects[10], subjects[22]]),
-    Group(10, "2do Mecanica Termina A", [subjects[11], subjects[4], subjects[0], subjects[1], subjects[3], subjects[2], subjects[5], subjects[9], subjects[10], subjects[22]]),
-    Group(11, "3ro Electricidad A", [subjects[12], subjects[13], subjects[0], subjects[1], subjects[14], subjects[15], subjects[5], subjects[6], subjects[20], subjects[22]]),
-    Group(12, "3ro Electronica A", [subjects[12], subjects[13], subjects[0], subjects[1], subjects[14], subjects[15], subjects[5], subjects[7], subjects[20], subjects[22]]),
-    Group(13, "3ro Electronica B", [subjects[12], subjects[13], subjects[0], subjects[1], subjects[14], subjects[15], subjects[5], subjects[7], subjects[20], subjects[22]]),
-    Group(14, "3ro Metalmecanica A", [subjects[12], subjects[13], subjects[0], subjects[1], subjects[14], subjects[15], subjects[5], subjects[8], subjects[20], subjects[22]]),
-    Group(15, "3ro Mecanica Termina A", [subjects[12], subjects[13], subjects[0], subjects[1], subjects[14], subjects[15], subjects[5], subjects[9], subjects[20], subjects[22]]),
-    Group(16, "4to Electricidad A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[16], subjects[20], subjects[23]]),
-    Group(17, "4to Electronica A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[17], subjects[20], subjects[23]]),
-    Group(18, "4to Electronica B", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[17], subjects[20], subjects[23]]),
-    Group(19, "4to Metalmecanica A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[18], subjects[20], subjects[23]]),
-    Group(20, "4to Mecanica Termina A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[19], subjects[20], subjects[23]]),
-    Group(21, "5to Electricidad A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[16], subjects[20], subjects[23]]),
-    Group(22, "5to Electronica A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[17], subjects[20], subjects[23]]),
-    Group(23, "5to Electronica B", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[17], subjects[20], subjects[23]]),
-    Group(24, "5to Metalmecanica A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[18], subjects[20], subjects[23]]),
-    Group(25, "5to Mecanica Termina A", [subjects[12], subjects[13], subjects[0], subjects[14], subjects[15], subjects[5], subjects[19], subjects[20], subjects[23]]),
+    Group(1, "1ro Electricidad A", [subjects[0], subjects[5], subjects[10], subjects[15], subjects[18], subjects[27], subjects[32], subjects[37], subjects[58], subjects[67]]),
+    Group(2, "1ro Electronica A", [subjects[0], subjects[5], subjects[10], subjects[15], subjects[18], subjects[27], subjects[33], subjects[42], subjects[59], subjects[67]]),
+    Group(3, "1ro Telematica A", [subjects[0], subjects[5], subjects[10], subjects[15], subjects[18], subjects[27], subjects[34], subjects[47], subjects[60], subjects[67]]),
+    Group(4, "1ro Metalmecanica A", [subjects[0], subjects[5], subjects[10], subjects[15], subjects[18], subjects[27], subjects[35], subjects[48], subjects[61], subjects[67]]),
+    Group(5, "1ro Mecanica Termica A", [subjects[0], subjects[5], subjects[10], subjects[15], subjects[18], subjects[27], subjects[36], subjects[53], subjects[62], subjects[67]]),
+    Group(6, "2do Electricidad A", [subjects[1], subjects[6], subjects[11], subjects[16], subjects[19], subjects[28], subjects[32], subjects[38], subjects[58], subjects[68]]),
+    Group(7, "2do Electronica A", [subjects[1], subjects[6], subjects[11], subjects[16], subjects[19], subjects[28], subjects[33], subjects[43], subjects[59], subjects[68]]),
+    Group(8, "2do Electronica B", [subjects[1], subjects[6], subjects[11], subjects[16], subjects[19], subjects[28], subjects[33], subjects[43], subjects[59], subjects[68]]),
+    Group(9, "2do Metalmecanica A", [subjects[1], subjects[6], subjects[11], subjects[16], subjects[19], subjects[28], subjects[35], subjects[49], subjects[61], subjects[68]]),
+    Group(10, "2do Mecanica Termina A", [subjects[1], subjects[6], subjects[11], subjects[16], subjects[19], subjects[28], subjects[36], subjects[54], subjects[62], subjects[68]]),
+    Group(11, "3ro Electricidad A", [subjects[2], subjects[7], subjects[12], subjects[17], subjects[20], subjects[21], subjects[29], subjects[32], subjects[39], subjects[63], subjects[69]]),
+    Group(12, "3ro Electronica A", [subjects[2], subjects[7], subjects[12], subjects[17], subjects[20], subjects[21], subjects[29], subjects[33], subjects[44], subjects[64], subjects[69]]),
+    Group(13, "3ro Electronica B", [subjects[2], subjects[7], subjects[12], subjects[17], subjects[20], subjects[21], subjects[29], subjects[33], subjects[44], subjects[64], subjects[69]]),
+    Group(14, "3ro Metalmecanica A", [subjects[2], subjects[7], subjects[12], subjects[17], subjects[20], subjects[21], subjects[29], subjects[35], subjects[50], subjects[65], subjects[69]]),
+    Group(15, "3ro Mecanica Termina A", [subjects[2], subjects[7], subjects[12], subjects[17], subjects[20], subjects[21], subjects[29], subjects[36], subjects[55], subjects[66], subjects[69]]),
+    Group(16, "4to Electricidad A", [subjects[3], subjects[8], subjects[13], subjects[22], subjects[23], subjects[24], subjects[30], subjects[32], subjects[40], subjects[63], subjects[70]]),
+    Group(17, "4to Electronica A", [subjects[3], subjects[8], subjects[13], subjects[22], subjects[23], subjects[24], subjects[30], subjects[33], subjects[45], subjects[64], subjects[70]]),
+    Group(18, "4to Electronica B", [subjects[3], subjects[8], subjects[13], subjects[22], subjects[23], subjects[24], subjects[30], subjects[33], subjects[45], subjects[64], subjects[70]]),
+    Group(19, "4to Metalmecanica A", [subjects[3], subjects[8], subjects[13], subjects[22], subjects[23], subjects[24], subjects[30], subjects[35], subjects[51], subjects[65], subjects[70]]),
+    Group(20, "4to Mecanica Termina A", [subjects[3], subjects[8], subjects[13], subjects[22], subjects[23], subjects[24], subjects[30], subjects[36], subjects[56], subjects[66], subjects[70]]),
+    Group(21, "5to Electricidad A", [subjects[4], subjects[9], subjects[14], subjects[25], subjects[26], subjects[31], subjects[32], subjects[41], subjects[63], subjects[71]]),
+    Group(22, "5to Electronica A", [subjects[4], subjects[9], subjects[14], subjects[25], subjects[26], subjects[31], subjects[33], subjects[46], subjects[64], subjects[71]]),
+    Group(23, "5to Electronica B", [subjects[4], subjects[9], subjects[14], subjects[25], subjects[26], subjects[31], subjects[33], subjects[46], subjects[64], subjects[71]]),
+    Group(24, "5to Metalmecanica A", [subjects[4], subjects[9], subjects[14], subjects[25], subjects[26], subjects[31], subjects[35], subjects[52], subjects[65], subjects[71]]),
+    Group(25, "5to Mecanica Termina A", [subjects[4], subjects[9], subjects[14], subjects[25], subjects[26], subjects[31], subjects[36], subjects[57], subjects[66], subjects[71]]),
 ]
 
 def random_start_hour(duration: int) -> int:
@@ -240,6 +288,7 @@ def create_timetable(events: list[Event]):
     timetable = []
     groups_block = {}
     teachers_block = {}
+    physic_education = [16, 17, 18]
 
     for event in events:
         if event.group not in groups_block:
@@ -259,7 +308,7 @@ def create_timetable(events: list[Event]):
                 is_teacher_available(event.teacher, start_hour, event.duration)):
                 
                 event.start_hour = start_hour
-                if event.subject != 2:
+                if event.subject not in physic_education:
                     event.room = random.choice(rooms).id
 
                 groups_block[event.group].update(event_hours)
@@ -276,7 +325,7 @@ def create_timetable(events: list[Event]):
                 
                 if not groups_block[event.group].intersection(event_hours) and is_teacher_available(event.teacher, start_hour, event.duration):
                     event.start_hour = start_hour
-                    if event.subject != 2:
+                    if event.subject not in physic_education:
                         event.room = random.choice(rooms).id
                     groups_block[event.group].update(event_hours)
                     teachers_block[event.teacher].update(event_hours) 
@@ -299,7 +348,7 @@ def create_timetable(events: list[Event]):
                 else:
                     event.start_hour = random_start_hour(event.duration)
 
-                if event.subject != 2:
+                if event.subject not in physic_education:
                     event.room = random.choice(rooms).id
 
                 event_hours = range(event.start_hour, event.start_hour + event.duration)
@@ -322,10 +371,7 @@ def create_events():
             teacher = random.choice(subject.teachers)
 
             while left_hours > 0:
-                if left_hours > 7 and left_hours < 10:
-                    duration = random.choice([6, 8])
-                
-                elif left_hours > 2 and left_hours < 7:
+                if left_hours > 2 and left_hours < 8:
                     if left_hours == 4:
                         duration = 2
                     else:
@@ -357,7 +403,7 @@ def fitness(population: list[list[Event]]):
         # Extraemos el score y descartamos la lista de choques usando ', _'
         t_score, _ = teachers_subjects(individual)
         
-        score = groups_subjects(individual) + t_score + rooms_groups(individual)
+        score = groups_subjects(individual) + t_score + rooms_groups(individual) + groups_gaps(individual) + subject_day(individual)
         results.append(score)
 
     return results
@@ -381,10 +427,12 @@ def groups_subjects(individual: list[Event]):
 def teachers_subjects(individual: list[Event]):
     score = 0
     teachers_occupation = {}
-    collisions = [] # Guardará el registro detallado de los choques
+    collisions = [] 
+    # Conjunto para rastrear choques conceptuales únicos ya penalizados
+    # Guardará tuplas de (teacher_id, min_event_id, max_event_id)
+    penalized_pairs = set()
 
     for event in individual:
-        # Ignorar eventos que no tienen hora asignada aún (preventivo)
         if event.start_hour is None:
             continue
 
@@ -392,26 +440,34 @@ def teachers_subjects(individual: list[Event]):
             key = (event.teacher, block)
 
             if key in teachers_occupation:
-                score += 150
-                
-                # Evento con el que choca (el que ya estaba guardado en esa hora)
                 existing_event = teachers_occupation[key]
                 
-                # Registramos el choque detallando ambos eventos involucrados
-                collisions.append({
-                    "teacher_id": event.teacher,
-                    "block": block,
-                    "event_1": {
-                        "id": existing_event.id,
-                        "subject": existing_event.subject,
-                        "group": existing_event.group
-                    },
-                    "event_2": {
-                        "id": event.id,
-                        "subject": event.subject,
-                        "group": event.group
-                    }
-                })
+                # Identificadores ordenados para evitar contar (A, B) y (B, A) como diferentes
+                event_pair = (event.teacher, min(existing_event.id, event.id), max(existing_event.id, event.id))
+                
+                # Solo sumamos al score de fitness si es la primera vez que detectamos este choque de eventos
+                if event_pair not in penalized_pairs:
+                    score += 150
+                    penalized_pairs.add(event_pair)
+                
+                    # Opcional: El reporte detallado puede seguir mostrando todos los bloques 
+                    # o puedes filtrarlo aquí para que solo guarde una colisión conceptual.
+                    # Mantenerlo aquí registrará cada bloque; si prefieres un reporte compacto, 
+                    # puedes meter este append dentro del 'if event_pair not in penalized_pairs:'
+                    collisions.append({
+                        "teacher_id": event.teacher,
+                        "block": block,
+                        "event_1": {
+                            "id": existing_event.id,
+                            "subject": existing_event.subject,
+                            "group": existing_event.group
+                        },
+                        "event_2": {
+                            "id": event.id,
+                            "subject": event.subject,
+                            "group": event.group
+                        }
+                    })
             else:
                 teachers_occupation[key] = event
     
@@ -427,10 +483,76 @@ def rooms_groups(individual: list[Event]):
                 key = (event.room, block)
 
                 if key in rooms_occupation:
-                    score += 50
+                    score += 0 # 0 temporalmente hasta que sepa como se manejan los salones
                 else:
                     rooms_occupation[key] = event
     
+    return score
+
+def groups_gaps(individual: list[Event]):
+    score = 0
+    timetable_map = {}
+
+    for event in individual:
+        if event.start_hour is None:
+            continue
+        
+        for block in range(event.start_hour, event.start_hour + event.duration):
+            day = (block - 1) // 10
+            hour_in_day = ((block - 1) % 10) + 1  # Rango de 1 a 10
+            
+            if event.group not in timetable_map:
+                timetable_map[event.group] = {d: set() for d in range(5)}
+                
+            timetable_map[event.group][day].add(hour_in_day)
+
+    for group, days in timetable_map.items():
+        for day, occupied_hours in days.items():
+            if not occupied_hours:
+                continue
+            
+            first_hour = min(occupied_hours)
+            last_hour = max(occupied_hours)
+            
+            gaps_count = 0
+
+            for h in range(first_hour, last_hour + 1):
+                if h not in occupied_hours:
+                    gaps_count += 1
+            
+            if gaps_count > 0:
+                # REGLA ESTRICTA: Si entra tarde (ej: hora 3 en adelante)
+                # NO se permiten horas libres intermedias. Penalización máxima.
+                if first_hour > 1:
+                    score += gaps_count * 80  # Penalización muy alta
+                else:
+                    # Si entra temprano desde la hora 1, permitimos máximo 1 hora libre,
+                    # el resto se penaliza de forma normal.
+                    max_allowed_gaps = 2
+                    if gaps_count > max_allowed_gaps:
+                        score += (gaps_count - max_allowed_gaps) * 40
+    return score
+
+def subject_day(individual: list[Event]):
+    score = 0
+    # Estructura: grupo -> día -> lista de materias vistas ese día
+    group_day_subjects = {}
+
+    for event in individual:
+        if event.start_hour is None:
+            continue
+        
+        day = (event.start_hour - 1) // 10
+        
+        if event.group not in group_day_subjects:
+            group_day_subjects[event.group] = {d: [] for d in range(5)}
+            
+        # Si la materia ya fue registrada este día para este grupo, hay duplicidad
+        if event.subject in group_day_subjects[event.group][day]:
+            score += 100  # Penalización alta para obligar a esparcir los eventos en días distintos
+        else:
+            group_day_subjects[event.group][day].append(event.subject)
+
     return score
 
 def selection(population, size):
@@ -459,6 +581,8 @@ def crossover(selected_population: list[list[Event]], population_size: int):
     return new_population
 
 def mutation(individual: list[Event]):
+    physic_education = [16, 17, 18]
+
     for event in individual:
         if random.random() < 0.02:
             if random.choice([True, False]):
@@ -529,7 +653,7 @@ def mutation(individual: list[Event]):
                         if valid_hours_for_prof:
                             event.start_hour = random.choice(valid_hours_for_prof)
         else:
-            if random.random() < 0.01 and event.subject != 2:
+            if random.random() < 0.01 and event.subject not in physic_education:
                 event.room = random.choice(rooms).id
     
     return individual
